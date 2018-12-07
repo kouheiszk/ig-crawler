@@ -4,5 +4,5 @@ type Config struct {
 	Username       string
 	UserAgent      string
 	MaxConnections int
-	After          int // Timestamp
+	After          int32 // Timestamp
 }

@@ -443,7 +443,7 @@ type mediaJsonType struct {
 			Id         string `json:"id"`
 			IsVideo    bool   `json:"is_video"`
 			Code       string `json:"shortcode"`
-			Timestamp  int    `json:"taken_at_timestamp"`
+			Timestamp  int32  `json:"taken_at_timestamp"`
 			DisplaySrc string `json:"display_url"`
 		} `json:"node"`
 	} `json:"edges"`
