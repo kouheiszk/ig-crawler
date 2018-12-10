@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
+	"github.com/kouheiszk/ig-crawler/client"
 	"github.com/pkg/errors"
 	"golang.org/x/sync/errgroup"
 	"math"
@@ -188,7 +189,7 @@ func (c *Crawler) fetchWithHeaders(url string, headers map[string]string) ([]byt
 		c.wait = time.After(c.crawlDelay)
 	}
 
-	response, err := fetchWithRequest(request)
+	response, err := client.FetchWithRequest(request)
 	if err != nil {
 		return nil, err
 	}
