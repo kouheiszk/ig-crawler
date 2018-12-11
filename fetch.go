@@ -1,4 +1,4 @@
-package client
+package crawler
 
 import (
 	"fmt"
@@ -13,15 +13,15 @@ import (
 const ErrorDelay = 30 * time.Second
 const RequestTimeout = 30 * time.Second
 
-func Fetch(url string) ([]byte, error) {
+func fetch(url string) ([]byte, error) {
 	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
 	}
-	return FetchWithRequest(request)
+	return fetchWithRequest(request)
 }
 
-func FetchWithRequest(request *http.Request) ([]byte, error) {
+func fetchWithRequest(request *http.Request) ([]byte, error) {
 	command, _ := http2curl.GetCurlCommand(request)
 	log.Println(command)
 
@@ -33,14 +33,14 @@ func FetchWithRequest(request *http.Request) ([]byte, error) {
 	if err != nil {
 		log.Print(errors.Wrap(err, "connection issue:"))
 		time.Sleep(ErrorDelay)
-		return FetchWithRequest(request)
+		return fetchWithRequest(request)
 	}
 	defer response.Body.Close()
 
 	if response.StatusCode == 429 {
 		log.Printf("throtteling \"%s\"", request.URL)
 		time.Sleep(ErrorDelay)
-		return FetchWithRequest(request)
+		return fetchWithRequest(request)
 	}
 
 	if response.StatusCode == 404 {
