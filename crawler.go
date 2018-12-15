@@ -90,17 +90,17 @@ func (c *Crawler) prepareConfig() error {
 	profileUrl := "https://www.instagram.com/" + c.config.Username + "/"
 	response, err := c.fetch(profileUrl)
 	if err != nil {
-		return err
+		return errors.Wrapf(err, "couldn't fetch profile page: %s", profileUrl)
 	}
 
 	jsonString, err := extractSharedDataJsonString(response)
 	if err != nil {
-		return err
+		return errors.Wrapf(err, "couldn't parse sharedData json")
 	}
 
 	c.queryId, err = c.extractQueryId(response)
 	if err != nil {
-		return fmt.Errorf("couldn't find queryId")
+		return errors.Wrapf(err, "couldn't find queryId")
 	}
 
 	err = json.Unmarshal([]byte(jsonString), &c.sharedData)
@@ -214,12 +214,14 @@ func (c *Crawler) extractQueryId(response []byte) (string, error) {
 	}
 
 	var queryId string
+	var findErr error
 	doc.Find("script").EachWithBreak(func(_ int, s *goquery.Selection) bool {
 		scriptUri, exists := s.Attr("src")
-		if exists && strings.Contains(scriptUri, "/static/bundles/base/ProfilePageContainer.js") {
+		if exists && strings.Contains(scriptUri, "/ProfilePageContainer.js") {
 			scriptUrl := "https://www.instagram.com" + scriptUri
 			response, err := c.fetch(scriptUrl)
 			if err != nil {
+				findErr = errors.Wrapf(err, "couldn't fetch script: %s", scriptUrl)
 				return false
 			}
 
@@ -232,8 +234,12 @@ func (c *Crawler) extractQueryId(response []byte) (string, error) {
 		return true
 	})
 
+	if findErr != nil {
+		return "", findErr
+	}
+
 	if queryId == "" {
-		return "", fmt.Errorf("couldn't find queryId")
+		return "", fmt.Errorf("queryId is missing")
 	}
 
 	return queryId, nil

@@ -14,6 +14,12 @@
   version = "v1.0.0"
 
 [[projects]]
+  name = "github.com/jessevdk/go-flags"
+  packages = ["."]
+  revision = "c6ca198ec95c841fdb89fc0de7496fed11ab854e"
+  version = "v1.4.0"
+
+[[projects]]
   name = "github.com/moul/http2curl"
   packages = ["."]
   revision = "9ac6cf4d929b2fa8fd2d2e6dec5bb0feb4f4911d"
@@ -43,6 +49,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "5988c417f8b9c3f5d8e183c7c7d48743448ceae733b86c7ee239932565ae7330"
+  inputs-digest = "a18d7a24a385bca5c27f822cd8c0c2a4d57ed55100b2c38816d445806fa6fe38"
   solver-name = "gps-cdcl"
   solver-version = 1
