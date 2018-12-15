@@ -34,3 +34,7 @@
 [[constraint]]
   name = "github.com/moul/http2curl"
   version = "1.0.0"
+
+[[constraint]]
+  name = "github.com/corpix/uarand"
+  version = "0.0.0"

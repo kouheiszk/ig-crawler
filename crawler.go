@@ -46,10 +46,7 @@ var galleryPageChan = make(chan Resource, 1000)
 var videoPageChan = make(chan Resource, 1000)
 
 func FetchProfileImage(config *Config) (string, error) {
-	crawler := &Crawler{
-		config:     config,
-		crawlDelay: CrawlInitialDelay,
-	}
+	crawler := NewCrawler(config)
 
 	if err := crawler.prepareConfig(); err != nil {
 		return "", err
@@ -64,11 +61,7 @@ func FetchProfileImage(config *Config) (string, error) {
 }
 
 func FetchResources(config *Config) ([]Resource, error) {
-	crawler := &Crawler{
-		config:     config,
-		crawlDelay: CrawlInitialDelay,
-		store:      &ResourceStore{},
-	}
+	crawler := NewCrawler(config)
 
 	if err := crawler.prepareConfig(); err != nil {
 		return nil, err
@@ -79,6 +72,18 @@ func FetchResources(config *Config) ([]Resource, error) {
 	}
 
 	return crawler.store.resources, nil
+}
+
+func NewCrawler(config *Config) *Crawler {
+	crawler := &Crawler{
+		config: NewConfig(),
+		crawlDelay: CrawlInitialDelay,
+		store:      &ResourceStore{},
+	}
+
+	crawler.config.Merge(config)
+
+	return crawler
 }
 
 func (c *Crawler) prepareConfig() error {
