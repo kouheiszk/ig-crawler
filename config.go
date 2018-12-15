@@ -21,6 +21,10 @@ func (c *Config) Merge(other *Config) *Config {
 }
 
 func mergeConfig(dst *Config, other *Config) {
+	if other.Username != "" {
+		dst.Username = other.Username
+	}
+
 	if other.UserAgent != "" {
 		dst.UserAgent = other.UserAgent
 	}
