@@ -14,12 +14,6 @@
   version = "v1.0.0"
 
 [[projects]]
-  name = "github.com/corpix/uarand"
-  packages = ["."]
-  revision = "37c9140f52f6bf4998ff7617c456d554d6a2dc2f"
-  version = "v0.0.0"
-
-[[projects]]
   name = "github.com/moul/http2curl"
   packages = ["."]
   revision = "9ac6cf4d929b2fa8fd2d2e6dec5bb0feb4f4911d"
@@ -38,7 +32,7 @@
     "html",
     "html/atom"
   ]
-  revision = "610586996380ceef02dd726cc09df7e00a3f8e56"
+  revision = "891ebc4b82d6e74f468c533b06f983c7be918a96"
 
 [[projects]]
   branch = "master"
@@ -49,6 +43,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "079b7336d23e0f3e5300a12aa1f56b5a2c568676cf1533bfecf813e93e22f37f"
+  inputs-digest = "5988c417f8b9c3f5d8e183c7c7d48743448ceae733b86c7ee239932565ae7330"
   solver-name = "gps-cdcl"
   solver-version = 1

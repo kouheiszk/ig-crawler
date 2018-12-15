@@ -1,6 +1,6 @@
 package crawler
 
-import "github.com/corpix/uarand"
+import "github.com/kouheiszk/ig-crawler/pkg/ua"
 
 type Config struct {
 	Username       string
@@ -11,7 +11,7 @@ type Config struct {
 
 func NewConfig() *Config {
 	return &Config{
-		UserAgent: uarand.GetRandom(),
+		UserAgent: ua.RandomUserAgent(),
 	}
 }
 

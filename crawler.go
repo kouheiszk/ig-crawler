@@ -76,7 +76,7 @@ func FetchResources(config *Config) ([]Resource, error) {
 
 func NewCrawler(config *Config) *Crawler {
 	crawler := &Crawler{
-		config: NewConfig(),
+		config:     NewConfig(),
 		crawlDelay: CrawlInitialDelay,
 		store:      &ResourceStore{},
 	}
